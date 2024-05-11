@@ -3,11 +3,17 @@ CSE-4410 Game Programming Final project
 
 Hi 👋, I'm Cody Nims and this is my video game "Johntato," meant for CSE-4410
 
-![Johntato](https://github.com/ChodyFlims/Johntato/assets/112797534/47bf450f-80d2-49de-82dd-c096050427f2)
+![Johntato](https://github.com/ChodyFlims/Johntato/assets/112797534/47bf450fy-80d2-49de-82dd-c096050427f2)
 
 ^ Meet Johntato, the main character — a lovable potato comprised of only 87 calories!!!
 
-The game features a few levels of varying difficulty
+Johntato is a 2D platformer video game featuring a wide variety of features and functions
+
+## Installation
+To install Johntato, follow these steps:
+1. Head to the releases page on the github https://github.com/ChodyFlims/Johntato/releases 
+2. Download the version of the game for your computer, I've provided builds for Windows, Mac, and Linux
+3. Run the game using the executable!!!
 
 ## Instructions
 
@@ -20,4 +26,8 @@ The game features a few levels of varying difficulty
 |     E| Interact       |
 
 ## Game Images
+![level1](https://github.com/ChodyFlims/Johntato/assets/112797534/b0637b61-8dea-419b-a602-f056834034d7)
 
+
+## Credits
+- Game was created entirely by Cody Nims
