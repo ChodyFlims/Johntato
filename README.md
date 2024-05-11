@@ -3,7 +3,7 @@ CSE-4410 Game Programming Final project
 
 Hi 👋, I'm Cody Nims and this is my video game "Johntato," meant for CSE-4410
 
-![Johntato](https://github.com/ChodyFlims/Johntato/assets/112797534/47bf450fy-80d2-49de-82dd-c096050427f2)
+![Johntato](https://github.com/ChodyFlims/Johntato/assets/112797534/b509309f-be16-4371-80d9-6925b1a0d0d5)
 
 ^ Meet Johntato, the main character — a lovable potato comprised of only 87 calories!!!
 
