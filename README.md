@@ -14,6 +14,7 @@ Johntato is a 2D platformer video game featuring a wide variety of features and 
 - Settings
 - Music & Sounds
 - Shooting and Looting
+- Scoring
 - Game Over & Win Screen
 - Many levels to explore
 - Watch out for the Enemy!!! the Enematos!!!
