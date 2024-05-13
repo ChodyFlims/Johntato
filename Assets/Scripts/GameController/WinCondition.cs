@@ -14,6 +14,7 @@ public class WinCondition : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             OnPlayedWin.Invoke();
+            Destroy(gameObject);
         }
     }
 

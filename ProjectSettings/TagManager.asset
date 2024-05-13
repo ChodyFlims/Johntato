@@ -11,6 +11,7 @@ TagManager:
   - EnemyXItem
   - WinCondition
   - Platform
+  - Boss
   layers:
   - Default
   - TransparentFX

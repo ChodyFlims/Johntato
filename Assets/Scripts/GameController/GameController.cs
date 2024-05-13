@@ -29,6 +29,15 @@ public class GameController : MonoBehaviour
 
     private ItemSpawner[] itemSpawners;
 
+    public PolygonCollider2D polygonCollider;
+    public PolygonCollider2D bossCollider;
+    private Vector2[] originalPoints; // Stores the original points of the collider
+
+    public Checkpoint checkpointObject;
+
+    private bool checkpointReached = false;
+    private bool youWin = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,12 +50,25 @@ public class GameController : MonoBehaviour
         DoBoth();
     }
 
+    void Update()
+    {
+        if (checkpointObject.checkpoint == true)
+        {
+            checkpointReached = true;
+        }
+        else
+        {
+            checkpointReached = false;
+        }
+    }
+
     // Display win screen
     void WinScreen()
     {
+        youWin = true;
         winScreen.SetActive(true);
         WinnerText.text = "Final Score: " + score;
-        MusicManager.PauseBackgorundMusic();
+        MusicManager.PauseBackgroundMusic();
         // Hide score text
         scoreText.gameObject.SetActive(false);
         Time.timeScale = 0;
@@ -57,7 +79,7 @@ public class GameController : MonoBehaviour
     {
         gameOverScreen.SetActive(true);
         FinalScore.text = "Final Score: " + score;
-        MusicManager.PauseBackgorundMusic();
+        MusicManager.PauseBackgroundMusic();
         // Hide score text
         scoreText.gameObject.SetActive(false);
         Time.timeScale = 0;
@@ -75,11 +97,49 @@ public class GameController : MonoBehaviour
     // Reset the game to its initial state
     public void ResetGame()
     {
-        // Deactivate all levels except the first one
+        if (checkpointReached == true && youWin == false)
+        {
+            ResetGameCheckPoint();
+        }
+        else if (youWin == true || youWin == false)
+        {
+            // Deactivate all levels except the first one
+            for (int i = 1; i < levels.Count; i++)
+            {
+                levels[i].SetActive(false);
+            }
+            MusicManager.SetBossBackgroundMusic(false);
+            MusicManager.PlayBackgroundMusic(true);
+            
+            gameOverScreen.SetActive(false);
+            winScreen.SetActive(false);
+            score = 0;
+            IncreaseScore(0);
+            scoreText.gameObject.SetActive(true);
+
+            KillEverybodyInTheWorld();
+            Loadlevel(1);
+            PlayerAssign();
+            DoBoth();
+
+            OnReset.Invoke();
+            Time.timeScale = 1;
+            youWin = false;
+        }
+    }
+
+    // Reset the game at the checkpoint
+    public void ResetGameCheckPoint()
+    {
+        // Deactivate all levels except the fourth one
         for (int i = 1; i < levels.Count; i++)
         {
-            levels[i].SetActive(false);
+            if (i != 4)
+            {
+                levels[i].SetActive(false);
+            }
         }
+        MusicManager.SetBossBackgroundMusic(false);
         MusicManager.PlayBackgroundMusic(true);
         
         gameOverScreen.SetActive(false);
@@ -89,7 +149,7 @@ public class GameController : MonoBehaviour
         scoreText.gameObject.SetActive(true);
 
         KillEverybodyInTheWorld();
-        Loadlevel(1);
+        LoadlevelCheckpoint(4);
         PlayerAssign();
         DoBoth();
 
@@ -162,6 +222,8 @@ public class GameController : MonoBehaviour
         GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
         // Find all GameObjects with the tag "Enemy"
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
+
         // Destroy each item
         foreach (GameObject item in items)
         {
@@ -171,6 +233,11 @@ public class GameController : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             Destroy(enemy);
+        }
+        // Destroy each boss
+        foreach (GameObject boss in bosses)
+        {
+            Destroy(boss);
         }
     }
 
@@ -184,6 +251,20 @@ public class GameController : MonoBehaviour
         currentLevelIndex = level;
     }
 
+    // Load level from checkpoint
+    public void LoadlevelCheckpoint(int level)
+    {
+        levels[currentLevelIndex].gameObject.SetActive(false);
+        levels[level].gameObject.SetActive(true);
+
+        float xPos = 4.41f;
+        float yPos = 27.95f;
+        float zPos = 0f;
+
+        player.transform.position = new Vector3(xPos,yPos,zPos);
+        currentLevelIndex = level;
+    }
+
     // Loads a specific level with a specific player position
     public void LoadSpecificLevel(int currentLevelIndex, int nextLevelIndex, Vector3 playerPosition)
     {
@@ -192,6 +273,12 @@ public class GameController : MonoBehaviour
 
         player.transform.position = playerPosition;
         currentLevelIndex = nextLevelIndex;
+
+        if (currentLevelIndex == 5)
+        {
+            ChangeConfiner();
+            MusicManager.SetBossBackgroundMusic(true);
+        }
     }
 
     // Increases the score
@@ -199,5 +286,12 @@ public class GameController : MonoBehaviour
     {
         score = score + amount;
         scoreText.text = $"Score: {score}";
+    }
+
+    void ChangeConfiner()
+    {
+        originalPoints = polygonCollider.points;
+        Vector2[] targetPoints = bossCollider.points;
+        polygonCollider.points = targetPoints;
     }
 }

@@ -40,6 +40,18 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(trap.damage);
         }
+
+        TankShell shell = collision.GetComponent<TankShell>();
+        if (shell)
+        {
+            TakeDamage(shell.damage);
+        }
+
+        BossController boss = collision.GetComponent<BossController>();
+        if (boss)
+        {
+            TakeDamage(boss.damage);
+        }
     }
 
     // Healing the player when they grab a health item
