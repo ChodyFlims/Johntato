@@ -36,6 +36,7 @@ To install Johntato, follow these steps:
 |     D| Move Right       |
 |     F| Shoot       |
 |     E| Interact       |
+|     P| Pause       |
 
 ## Game Images
 ![level1](https://github.com/ChodyFlims/Johntato/assets/112797534/b0637b61-8dea-419b-a602-f056834034d7)
