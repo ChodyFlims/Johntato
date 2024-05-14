@@ -111,6 +111,10 @@ public class GameController : MonoBehaviour
             MusicManager.SetBossBackgroundMusic(false);
             MusicManager.PlayBackgroundMusic(true);
             
+            checkpointReached = false;
+
+            checkpointObject.ResetCheckpoint();
+
             gameOverScreen.SetActive(false);
             winScreen.SetActive(false);
             score = 0;

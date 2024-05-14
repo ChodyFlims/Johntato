@@ -13,4 +13,8 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
+    public void ResetCheckpoint()
+    {
+        checkpoint = false;
+    }
 }

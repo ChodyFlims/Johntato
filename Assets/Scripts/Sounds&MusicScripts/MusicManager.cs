@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
-    private static MusicManager Instance;
+    public static MusicManager Instance;
     private AudioSource audioSource;
     public AudioClip backgroundMusic;
     public AudioClip backgroundMusic2;
 
     public AudioClip bossBackgroundMusic;
-    [SerializeField] private Slider musicSlider;
+    [SerializeField] public Slider musicSlider;
 
     // Awake is called when the script instance is being loaded
     // It ensures that only one instance of the MusicManager exists
@@ -61,6 +61,11 @@ public class MusicManager : MonoBehaviour
         Instance.audioSource.volume = volume;
     }
 
+    public static float GetVolume()
+    {
+        return Instance.audioSource.volume;
+    }
+
     // Method to play background music
     public static void PlayBackgroundMusic(bool resetSong, AudioClip audioClip = null)
     {
@@ -83,6 +88,11 @@ public class MusicManager : MonoBehaviour
     public static void PauseBackgroundMusic()
     {
         Instance.audioSource.Pause();
+    }
+
+    public static void ResumeBackgroundMusic()
+    {
+        Instance.audioSource.Play();
     }
 
     public static void SetBossBackgroundMusic(bool isBossLevel)

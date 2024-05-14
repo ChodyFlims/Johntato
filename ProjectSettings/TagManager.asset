@@ -12,6 +12,7 @@ TagManager:
   - WinCondition
   - Platform
   - Boss
+  - MusicManager
   layers:
   - Default
   - TransparentFX

@@ -28,10 +28,14 @@ public class BossController : MonoBehaviour
     public GameObject winConditionObject;
     public Vector3 winConditionSpawnPoint;
 
+    public Sprite shootingSprite;
+    private Sprite originalSprite; // Store the original sprite of the boss
+
     void Start()
     {
         currentHealth = maxHealth; // Initialize current health to max health
         spriteRenderer = GetComponent<SpriteRenderer>(); // Get reference to SpriteRenderer component
+        originalSprite = spriteRenderer.sprite; // Store the original sprite
         ogColor = spriteRenderer.color;
     }
 
@@ -76,7 +80,10 @@ public class BossController : MonoBehaviour
     {
         Vector3 shootDirection = bossIsFacingLeft ? -transform.right : transform.right; // Shoot left if bossIsFacingLeft, otherwise shoot right
 
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        // Calculate the spawn position offset from the boss position
+        Vector3 spawnPosition = transform.position + new Vector3(1f, -0.5f, 0f);
+
+        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
 
         Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
         SoundEffectManager.Play("EnemyShoot");
@@ -94,6 +101,12 @@ public class BossController : MonoBehaviour
             bulletRb.velocity = shootDirection * bulletSpeed;
         }
 
+        if (shootingSprite != null)
+        {
+            spriteRenderer.sprite = shootingSprite;
+            StartCoroutine(ResetSpriteAfterDelay());
+        }
+
         Destroy(bullet, bulletLifetime);
     }
 
@@ -106,6 +119,15 @@ public class BossController : MonoBehaviour
             SoundEffectManager.Play("EnemyDeath");
             Die();
         }
+    }
+
+    IEnumerator ResetSpriteAfterDelay()
+    {
+        // Wait for a short time before resetting the sprite
+        yield return new WaitForSeconds(0.2f);
+        
+        // Revert back to original sprite
+        spriteRenderer.sprite = originalSprite;
     }
 
     private IEnumerator FlashRed()

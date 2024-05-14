@@ -217,10 +217,13 @@ MonoBehaviour:
   endPoint: {fileID: 7691552257044893303}
   bulletPrefab: {fileID: 768885571702193158, guid: bd62db02b04a8be4b98f6dddd9d64719, type: 3}
   shootInterval: 2
-  winConditionObject: {fileID: 4089473006879324128, guid: 4bff840dfc810cc4b8aa5a7a9622d920, type: 3}
   bulletLifetime: 2
   bulletSpeed: 10
   damage: 1
+  winConditionObject: {fileID: 4089473006879324128, guid: 4bff840dfc810cc4b8aa5a7a9622d920, type: 3}
+  winConditionSpawnPoint: {x: 0, y: 0, z: 0}
+  shootingSprite: {fileID: 21300000, guid: 6ace15592537f254dbd798036d1a3b44, type: 3}
+  originalSprite: {fileID: 21300000, guid: 091bf7dd1f2dc894c84c8a20ee2dfc37, type: 3}
 --- !u!1 &7691552257044893288
 GameObject:
   m_ObjectHideFlags: 0
