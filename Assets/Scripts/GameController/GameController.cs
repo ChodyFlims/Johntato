@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour
 
     public PolygonCollider2D polygonCollider;
     public PolygonCollider2D bossCollider;
+    public PolygonCollider2D originalCollider;
+
     private Vector2[] originalPoints; // Stores the original points of the collider
 
     public Checkpoint checkpointObject;
@@ -120,6 +122,8 @@ public class GameController : MonoBehaviour
             score = 0;
             IncreaseScore(0);
             scoreText.gameObject.SetActive(true);
+
+            RevertConfiner();
 
             KillEverybodyInTheWorld();
             Loadlevel(1);
@@ -265,6 +269,8 @@ public class GameController : MonoBehaviour
         float yPos = 27.95f;
         float zPos = 0f;
 
+        RevertConfiner();
+
         player.transform.position = new Vector3(xPos,yPos,zPos);
         currentLevelIndex = level;
     }
@@ -283,6 +289,10 @@ public class GameController : MonoBehaviour
             ChangeConfiner();
             MusicManager.SetBossBackgroundMusic(true);
         }
+        else
+        {
+            RevertConfiner();
+        }
     }
 
     // Increases the score
@@ -296,6 +306,13 @@ public class GameController : MonoBehaviour
     {
         originalPoints = polygonCollider.points;
         Vector2[] targetPoints = bossCollider.points;
+        polygonCollider.points = targetPoints;
+    }
+
+    void RevertConfiner()
+    {
+        originalPoints = originalCollider.points;
+        Vector2[] targetPoints = originalCollider.points;
         polygonCollider.points = targetPoints;
     }
 }
